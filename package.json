@@ -1,6 +1,6 @@
 {
   "name": "once-upon",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Executes a callback once upon the first of a list of events",
   "main": "index.js",
   "scripts": {
