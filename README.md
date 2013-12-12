@@ -1,5 +1,4 @@
 #once-upon
-===========
 
 Executes a callback at most once upon the first of any number of events.
 
