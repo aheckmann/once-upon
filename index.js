@@ -1,6 +1,4 @@
 
-var once = require('once');
-
 /**
  * The first time any of the passed `events` fire on the EventEmitter,
  * the `cb` is executed. The callback will not be executed thereafter.
@@ -20,9 +18,16 @@ module.exports = exports = function onceUpon (events, ee, cb) {
   if ('function' !== typeof cb)
     throw new TypeError('cb must be a function');
 
-  cb = once(cb);
+  function once () {
+    if (once.ran) return once.val;
+    once.ran = true;
+    events.forEach(function(event) {
+      ee.removeListener(event, once);
+    });
+    return once.val = cb.apply(this, arguments);
+  };
 
   events.forEach(function(event) {
-    ee.once(event, cb);
+    ee.on(event, once);
   });
 };
